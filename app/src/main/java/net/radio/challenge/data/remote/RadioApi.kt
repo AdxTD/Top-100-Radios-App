@@ -1,6 +1,6 @@
 package net.radio.challenge.data.remote
 
-import com.example.example.StationsResponse
+import net.radio.challenge.data.remote.dto.StationsResponse
 import retrofit2.http.GET
 
 interface RadioApi {

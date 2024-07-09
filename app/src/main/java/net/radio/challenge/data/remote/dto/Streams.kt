@@ -1,12 +1,12 @@
-package com.example.example
+package net.radio.challenge.data.remote.dto
 
-import com.google.gson.annotations.SerializedName
+import com.squareup.moshi.Json
 
 
 data class Streams (
 
-  @SerializedName("url"           ) var url           : String? = null,
-  @SerializedName("contentFormat" ) var contentFormat : String? = null,
-  @SerializedName("status"        ) var status        : String? = null
+  @field:Json(name ="url"           ) val url           : String? = null,
+  @field:Json(name ="contentFormat" ) val contentFormat : String? = null,
+  @field:Json(name ="status"        ) val status        : String? = null
 
 )

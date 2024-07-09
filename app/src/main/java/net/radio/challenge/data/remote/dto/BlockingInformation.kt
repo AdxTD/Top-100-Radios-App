@@ -1,11 +1,11 @@
-package com.example.example
+package net.radio.challenge.data.remote.dto
 
-import com.google.gson.annotations.SerializedName
+import com.squareup.moshi.Json
 
 
 data class BlockingInformation (
 
-  @SerializedName("isBlocked"   ) var isBlocked   : Boolean?          = null,
-  @SerializedName("isBlockedIn" ) var isBlockedIn : ArrayList<String> = arrayListOf()
+  @field:Json(name ="isBlocked"   ) val isBlocked   : Boolean?          = null,
+  @field:Json(name ="isBlockedIn" ) val isBlockedIn : ArrayList<String> = arrayListOf()
 
 )
