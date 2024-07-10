@@ -5,12 +5,12 @@ import com.squareup.moshi.Json
 
 data class StationsResponse (
 
-  @field:Json(name ="systemName"  ) val systemName  : String?              = null,
-  @field:Json(name ="title"       ) val title       : String?              = null,
-  @field:Json(name ="playables"   ) val playables   : ArrayList<Playable> = arrayListOf(),
-  @field:Json(name ="displayType" ) val displayType : String?              = null,
-  @field:Json(name ="count"       ) val count       : Int?                 = null,
-  @field:Json(name ="offset"      ) val offset      : Int?                 = null,
-  @field:Json(name ="totalCount"  ) val totalCount  : Int?                 = null
+  val systemName  : String?              = null,
+  val title       : String?              = null,
+  val playables   : List<Playable>,
+  val displayType : String?              = null,
+  val count       : Int?                 = null,
+  val offset      : Int?                 = null,
+  val totalCount  : Int?                 = null
 
 )

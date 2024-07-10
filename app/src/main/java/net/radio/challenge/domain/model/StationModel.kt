@@ -7,7 +7,7 @@ data class StationModel(
     val name:       String? = null,
     val country:    String? = null,
     val city:       String? = null,
-    val genres:     ArrayList<String> = arrayListOf(),
-    val topics:     ArrayList<String> = arrayListOf(),
+    val genres:     List<String> = arrayListOf(),
+    val topics:     List<String> = arrayListOf(),
     val logo300x300:String? = null
 )
