@@ -10,7 +10,7 @@ import net.radio.challenge.domain.model.StationModel
 import net.radio.challenge.domain.repository.StationsRepository
 import javax.inject.Inject
 
-class StationRepositoryImpl @Inject constructor(
+class StationsRepositoryImpl @Inject constructor(
     private val api: RadioApi
 ): StationsRepository{
     override suspend fun getStationsListings(): Flow<List<StationModel>>
