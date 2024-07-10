@@ -3,7 +3,7 @@ package net.radio.challenge.data.remote.dto
 import com.squareup.moshi.Json
 
 
-data class Playables (
+data class Playable (
 
   @field:Json(name = "city"                ) val city                : String?              = null,
   @field:Json(name = "country"             ) val country             : String?              = null,
