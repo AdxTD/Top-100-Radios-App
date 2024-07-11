@@ -37,7 +37,7 @@ class StationsListingViewModelShould {
     private val mockErrorMsg: String = "error msg"
 
     @Test
-    fun callGetStationsOnRepositoryWhenFetchBooksIsCalled() = runTest {
+    fun callGetStationsListingsOnRepositoryWhenFetchStationsIsCalled() = runTest {
         givenASuccessfulStationsApiCall(mockStations)
         viewModel.fetchStations()
         Mockito.verify(stationsRepository).getStationsListings()
