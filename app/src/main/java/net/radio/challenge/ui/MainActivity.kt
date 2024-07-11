@@ -1,13 +1,16 @@
 package net.radio.challenge.ui
 
+import android.graphics.drawable.Drawable
 import android.os.Bundle
-import android.widget.TextView
+import android.view.View
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.LinearLayoutManager
 import dagger.hilt.android.AndroidEntryPoint
 import net.radio.challenge.R
 import net.radio.challenge.databinding.ActivityMainBinding
@@ -20,6 +23,8 @@ class MainActivity : AppCompatActivity() {
     @Inject
     lateinit var viewModelFactory: StationsListingViewModelFactory
     private val viewModel by viewModels<StationsListingViewModel> { viewModelFactory }
+
+    private lateinit var recyclerAdapter: StationsListRecyclerAdapter
 
     // views
     private lateinit var binding: ActivityMainBinding
@@ -34,7 +39,8 @@ class MainActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
-        setupViews()
+
+        setupRecycler()
 
         viewModel.stations().observe(this) { stations ->
             showStations(stations)
@@ -49,23 +55,45 @@ class MainActivity : AppCompatActivity() {
         viewModel.fetchStations()
     }
 
-    private fun setupViews() {
+    private fun setupRecycler(){
+        binding.recyclerView.layoutManager = LinearLayoutManager(this)
+        recyclerAdapter = StationsListRecyclerAdapter()
+        binding.recyclerView.adapter = recyclerAdapter
+
+        val itemDecoration = DividerItemDecoration(this, (binding.recyclerView.layoutManager as LinearLayoutManager).orientation)
+        val dividerDrawable: Drawable = resources.getDrawable(R.drawable.divider)
+        itemDecoration.setDrawable(dividerDrawable)
+        binding.recyclerView.addItemDecoration(itemDecoration)
+
+        binding.swipeRefreshLayout.setOnRefreshListener { viewModel.fetchStations() }
     }
 
     private fun showLoading() {
-
+        binding.swipeRefreshLayout.isRefreshing = true
     }
 
     private fun hideLoading() {
-
+        binding.swipeRefreshLayout.isRefreshing = false
     }
 
     private fun showStations(stations: List<StationModel>){
-        binding.tvInfo.text = "${stations.size}"
+        hideLoading()
+        if(stations.isEmpty()){
+            binding.tvInfo.visibility = View.VISIBLE
+            binding.tvInfo.text = "No Data !"
+            return
+        }
+        binding.tvInfo.visibility = View.GONE
+        recyclerAdapter.updateItems(stations)
     }
 
     private fun showError(msg: String){
-        binding.tvInfo.text = "ERROR: $msg"
-        Toast.makeText(this, msg, Toast.LENGTH_LONG).show()
+        hideLoading()
+        if(recyclerAdapter.itemCount == 0) {
+            binding.tvInfo.visibility = View.VISIBLE
+            binding.tvInfo.text = "ERROR: $msg"
+        }
+        else
+            Toast.makeText(this, msg, Toast.LENGTH_LONG).show()
     }
 }
