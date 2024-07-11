@@ -66,32 +66,35 @@ class MainActivity : AppCompatActivity() {
         binding.recyclerView.addItemDecoration(itemDecoration)
 
         binding.swipeRefreshLayout.setOnRefreshListener { viewModel.fetchStations() }
+        binding.btnRetry.setOnClickListener { viewModel.fetchStations() }
     }
 
     private fun showLoading() {
         binding.swipeRefreshLayout.isRefreshing = true
+        binding.containerProgressbar.visibility = View.VISIBLE
     }
 
     private fun hideLoading() {
         binding.swipeRefreshLayout.isRefreshing = false
+        binding.containerProgressbar.visibility = View.GONE
     }
 
     private fun showStations(stations: List<StationModel>){
         hideLoading()
         if(stations.isEmpty()){
-            binding.tvInfo.visibility = View.VISIBLE
+            binding.containerError.visibility = View.VISIBLE
             binding.tvInfo.text = "No Data !"
             return
         }
-        binding.tvInfo.visibility = View.GONE
+        binding.containerError.visibility = View.GONE
         recyclerAdapter.updateItems(stations)
     }
 
     private fun showError(msg: String){
         hideLoading()
         if(recyclerAdapter.itemCount == 0) {
-            binding.tvInfo.visibility = View.VISIBLE
-            binding.tvInfo.text = "ERROR: $msg"
+            binding.containerError.visibility = View.VISIBLE
+            binding.tvInfo.text = msg
         }
         else
             Toast.makeText(this, msg, Toast.LENGTH_LONG).show()

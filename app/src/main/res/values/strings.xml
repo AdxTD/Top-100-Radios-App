@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Top 100 Radios</string>
+    <string name="tv_info">No data!</string>
+    <string name="btn_retry">Retry</string>
 </resources>
