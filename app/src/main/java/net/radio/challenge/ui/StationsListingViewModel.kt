@@ -29,10 +29,10 @@ class StationsListingViewModel @Inject constructor(
             stationsRepository.getStationsListings().collect { result ->
                 when (result) {
                     is Resource.Success -> {
-                        stations.value = result.data
+                        stations.value = result.data ?: emptyList()
                     }
                     is Resource.Error -> {
-                        errorMsg.value = result.message
+                        errorMsg.value = result.message ?: "Unexpected error!"
                     }
                 }
             }
